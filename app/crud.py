@@ -22,3 +22,21 @@ def create_user(db: Session, email, password):
 def get_user_by_id(db: Session, user_id: int):
     user = db.query(models.User).filter(models.User.id == user_id).first()
     return user
+
+def create_project(db: Session, name: str, description: str | None, owner_id: int):
+    project = models.Project(name = name, description = description, owner_id = owner_id)
+
+    db.add(project)
+    db.commit()
+    db.refresh(project)
+
+    return project
+
+def get_project_by_id(db: Session, project_id: int):
+    project = db.query(models.Project).filter(models.Project.id == project_id).first()
+
+    return project
+
+def get_project_by_owner(db: Session, owner_id: int):
+    projects = db.query(models.Project).filter(models.Project.owner_id == owner_id).all()
+    return projects
