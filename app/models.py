@@ -30,7 +30,7 @@ class Project(Base):
     owner = relationship("User", back_populates = "projects")
     tasks = relationship("Task", back_populates= "project")
 
-class Tasks(Base):
+class Task(Base):
     __tablename__ = "tasks"
 
     id = Column(Integer, primary_key = True, index = True)
