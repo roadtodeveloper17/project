@@ -8,6 +8,9 @@ router = APIRouter(prefix= "/projects", tags= ["Projects"])
 def create_project(project: schemas.ProjectCreate,
                    current_user: models.User = Depends(dependencies.get_current_user),
                    db: Session = Depends(database.get_db)):
+    if current_user.id != project.owner_id:
+        raise HTTPException(status_code = status.HTTP_403_FORBIDDEN, detail = "Forbidden")
+    
     return crud.create_project(db, project.name, project.description, project.owner_id)
 
 @router.get("/", response_model = list[schemas.ProjectResponse])

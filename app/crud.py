@@ -40,3 +40,21 @@ def get_project_by_id(db: Session, project_id: int):
 def get_project_by_owner(db: Session, owner_id: int):
     projects = db.query(models.Project).filter(models.Project.owner_id == owner_id).all()
     return projects
+
+def create_task(db: Session, title: str, description: str | None, project_id: int):
+    task = models.Task(title = title, description = description, project_id = project_id, status= "todo")
+
+    db.add(task)
+    db.commit()
+    db.refresh(task)
+
+    return task
+
+def get_task_by_id(db: Session, task_id: int):
+    task = db.query(models.Task).filter(models.Task.id == task_id).first()
+    return task
+
+def get_tasks_by_project(db: Session, project_id: int):
+    tasks = db.query(models.Task).filter(models.Task.project_id == project_id).all()
+    return tasks
+

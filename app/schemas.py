@@ -34,3 +34,20 @@ class ProjectResponse(BaseModel):
     class Config:
         from_attributes= True
 
+class TaskCreate:
+    title: str
+    description: Optional[str] = None
+    project_id: int
+
+class TaskResponse:
+    id: int
+    title: str
+    description: Optional[str] = None
+    status: str
+    project_id: int
+    assigned_user_id: Optional[int]
+    created_at: datetime
+
+    class Config:
+        from_attributes= True
+        
