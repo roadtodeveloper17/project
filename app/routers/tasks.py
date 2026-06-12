@@ -9,7 +9,7 @@ router = APIRouter(prefix= "/tasks", tags= ["Tasks"])
 def create_task(task: schemas.TaskCreate, 
                 db: Session = Depends(database.get_db),
                 current_user: models.User = Depends(dependencies.get_current_user)):
-    project = db.query(models.Project).filter(models.Project.id == task.project_id).first()
+    project = crud.get_project_by_id(db, task.project_id)
 
     if not project:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail = "Project not found")
@@ -23,7 +23,7 @@ def create_task(task: schemas.TaskCreate,
 def get_all_tasks(project_id: int,
                   db: Session = Depends(database.get_db),
                   current_user: models.User = Depends(dependencies.get_current_user)):
-    project = db.query(models.Project).filter(models.Project.id == task.project_id).first()
+    project = crud.get_project_by_id(db, project_id)
 
     if not project:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= "Project not found")
