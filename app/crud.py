@@ -58,3 +58,23 @@ def get_tasks_by_project(db: Session, project_id: int):
     tasks = db.query(models.Task).filter(models.Task.project_id == project_id).all()
     return tasks
 
+def update_task_status(db: Session, task_id: int, status: str):
+    task = get_task_by_id(db, task_id)
+
+    if not task:
+        return None
+    
+    task.status = status
+    db.commit()
+    db.refresh(task)
+    return task
+
+def delete_task(db: Session, task_id: int):
+    task = get_task_by_id(db, task_id)
+
+    if not task:
+        return None
+    
+    db.delete(task)
+    db.commit()
+    return task
