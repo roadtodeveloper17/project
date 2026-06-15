@@ -22,7 +22,6 @@ class Token(BaseModel):
 class ProjectCreate(BaseModel):
     name: str
     description: Optional[str] = None
-    owner_id: int
 
 class ProjectResponse(BaseModel):
     id: int
