@@ -38,7 +38,7 @@ def update_task(task_id: int,
                 task_update: schemas.TaskUpdate,
                 db: Session = Depends(database.get_db),
                 current_user: models.User = Depends(dependencies.get_current_user)):
-    task = crud.get_task_by_id(task_id)
+    task = crud.get_task_by_id(db, task_id)
     if not task:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= "Task not found")
     

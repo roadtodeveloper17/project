@@ -77,7 +77,6 @@ def delete_task(db: Session, task_id: int):
     
     db.delete(task)
     db.commit()
-    return task
 
 def get_all_users(db: Session):
     return db.query(models.User).all()
