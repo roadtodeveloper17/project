@@ -8,5 +8,5 @@ passlib[bcrypt]
 alembic
 pytest
 httpx
-pwdlib
+pwdlib[argon2]
 pydantic[email]
