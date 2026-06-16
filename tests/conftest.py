@@ -7,7 +7,8 @@ from sqlalchemy.orm import sessionmaker
 from app.main import app
 from app.database import Base, get_db
 
-SQLALCHEMY_DATABASE_URL= os.getenv("TEST_DATABASE_URL")
+SQLALCHEMY_DATABASE_URL= os.getenv("TEST_DATABASE_URL", 
+                                   "postgresql://postgres:Ts-123456*@localhost:5432/test_taskflow_db")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
