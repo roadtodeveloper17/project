@@ -1,3 +1,4 @@
+import os
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -6,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from app.main import app
 from app.database import Base, get_db
 
-SQLALCHEMY_DATABASE_URL= ("postgresql://postgres:Ts-123456*@localhost:5432/test_taskflow_db")
+SQLALCHEMY_DATABASE_URL= os.getenv("TEST_DATABASE_URL")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
