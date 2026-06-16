@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Ts-123546*
+      POSTGRES_DB: taskflow_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:Ts-123456*@db:5432/taskflow_db
+      SECRET_KEY: dev_secret_key
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
